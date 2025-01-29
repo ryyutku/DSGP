@@ -1,0 +1,29 @@
+Reporter Name - Sri Lanka
+Partner Name - Countries like Afghanistan, United Arab Emirates...
+Trade Flow - Import
+Product group - Fuels
+Import(US$ Thousand) - 5.59...
+Import Product Share(%) - 0.5, 34.89..
+AHS Simple Average (%) - 9.38, 8.69...
+AHS Weighed Average (%) - 9.38, 9.66...
+AHS Total Tariff Lines - 9, 25, 5...
+AHS Dutry Free Tariff Lines Share (%) - 44.4, 44...
+AHS specific Tariff Lines Share (%) - 
+AHS AVE Tariff Lines Share (%) 
+AHS MaxRate (%)
+AHS MinRate (%)
+AHS SpecificDuty Imports (US$ Thousands) -5.59, 7489.63
+AHS Dutiable Imports (US$ Thousands) 
+AHS Duty Free Imports (US$ Thousands)
+MFN Simple Average (%)
+MFN Weighted Average (%)
+MFN Total Tariff Lines 
+MFN Dutiable Tariff Lines Share (%)
+MFN Dutry Free Tariff Lines Share (%)
+MFN Specific Tariff Lines Share (%)
+MFN AVE Tariff Lines Share (%)
+MFN MaxRate (%)
+MFN MinRate (%)
+MFN SpecificDuty Imports (US$ Thousand)
+MFN Dutiable Imports (US$ Thousand)
+MFN Duty Free Imports (US$ Thousand)
