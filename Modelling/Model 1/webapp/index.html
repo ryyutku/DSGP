@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demand Forecasting</title>
+</head>
+<body>
+    <h1>Demand Forecasting</h1>
+    
+    <!-- Form to submit data -->
+    <form id="forecastForm" method="POST">
+        <label for="input_data">Enter data for prediction:</label><br>
+        <input type="text" id="input_data" name="input_data" required><br><br>
+        <button type="submit">Forecast</button>
+    </form>
+
+    <h2>Forecast Plot</h2>
+    <!-- Display forecast plot -->
+    <img id="forecastPlot" src="" alt="Forecast plot will appear here">
+    
+    <script>
+        document.getElementById('forecastForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('forecastPlot').src = 'data:image/png;base64,' + data.plot_url;
+            });
+        });
+    </script>
+</body>
+</html>
