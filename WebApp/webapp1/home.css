@@ -35,6 +35,15 @@
     font-size: 2vh;
 }
 
+p {
+    line-height: 1.6; 
+    align-content: left;
+}
+h3 + p {
+    margin-top: 10%; /* Targets only p right after an h3 */
+}
+
+
 /* --------Navigation Tab-------- */
 header {
     position: fixed;
@@ -141,6 +150,56 @@ section {
 }
 
 /* --------Demand Forecast-------- */
+
+/* .demand-box1 {
+    display: grid;
+    grid-template-columns: 23% 75%;
+    gap: 2rem;
+} */
+
+.para1-text {
+    max-width: 50%;
+    min-width: 200px;
+    padding: 10%;
+    border-radius: 10px;
+    box-shadow: black;
+
+    width: 350px; /* Increase width for a boxy look */
+    height: 200px; /* Set a fixed height */
+    overflow: hidden; /* Prevent extra content from making it taller */
+
+}
+
+.para1-text {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow); /* 3D effect */
+    width: 300px; /* Adjust size */
+    max-width: 100%;
+}
+
+.para1-text h3 {
+    text-align: center; /* Center title */
+}
+
+
+
+.demand-box1 {
+    display: flex;
+    justify-content: space-between; /* Aligns text & image side by side */
+    align-items: center;
+    gap: 2rem; /* Adds space between elements */
+}
+
+.demand-forecast1 img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+
+
+
 
 
 /* --------Footer-------- */
