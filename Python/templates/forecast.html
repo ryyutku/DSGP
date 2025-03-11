@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Demand Forecast</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #forecast-chart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fuel Demand Forecast</h1>
+        <form id="forecast-form">
+            <div class="form-group">
+                <label for="days">Enter Number of Days to Forecast:</label>
+                <input type="number" id="days" name="days" min="1" required>
+            </div>
+            <button type="submit">Generate Forecast</button>
+        </form>
+        <div id="forecast-chart"></div>
+    </div>
+
+    <script>
+        document.getElementById("forecast-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var days = document.getElementById("days").value;
+
+            fetch("/forecast?days=" + days)
+                .then(response => response.json())
+                .then(data => {
+                    var chart = document.getElementById("forecast-chart");
+                    chart.innerHTML = "";  // Clear previous chart
+                    
+                    var actualTrace = {
+                        x: data.dates,
+                        y: data.actual,
+                        mode: "lines+markers",
+                        name: "Actual Fuel Demand",
+                        line: { color: "blue" }
+                    };
+
+                    var predictedTrace = {
+                        x: data.dates,
+                        y: data.predicted,
+                        mode: "lines+markers",
+                        name: "Predicted Fuel Demand",
+                        line: { color: "red", dash: "dash" }
+                    };
+
+                    var layout = {
+                        title: "Actual vs Predicted Fuel Demand",
+                        xaxis: { title: "Date" },
+                        yaxis: { title: "Fuel Demand" },
+                        showlegend: true
+                    };
+
+                    Plotly.newPlot("forecast-chart", [actualTrace, predictedTrace], layout);
+                })
+                .catch(error => console.error("Error fetching forecast:", error));
+        });
+    </script>
+</body>
+</html>
