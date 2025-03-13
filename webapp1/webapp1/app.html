@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO2 Emission Forecasting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CO2 Emission Forecasting</h1>
+    
+    <div id="chart-container">
+        <!-- Chart will be inserted here -->
+        <h3>Forecasting CO₂ Emissions</h3>
+        <div id="forecast-chart"></div>
+    </div>
+
+    <script>
+        // Fetch the chart from the backend (Flask app)
+        fetch('http://127.0.0.1:5000/forecast')
+            .then(response => response.text())
+            .then(data => {
+                // Inject the returned HTML (Plotly chart) into the page
+                document.getElementById('forecast-chart').innerHTML = data;
+            })
+            .catch(error => {
+                console.error("Error fetching forecast data:", error);
+            });
+    </script>
+
+</body>
+</html>
