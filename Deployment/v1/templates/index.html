@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Demand Forecast</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Fuel Demand Forecast</h1>
+    <div id="plotly-chart"></div>
+
+    <script>
+        // Example data (replace with actual data from your application)
+        const futureData = {
+            "data": [
+                {"date": "2023-10-01", "feature1": 100, "feature2": 200, ...},
+                {"date": "2023-10-08", "feature1": 110, "feature2": 210, ...},
+                // Add more data points as needed
+            ]
+        };
+
+        // Send a POST request to the Flask API
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(futureData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Render the Plotly chart
+            const graphJSON = JSON.parse(data);
+            Plotly.newPlot('plotly-chart', graphJSON.data, graphJSON.layout);
+        });
+    </script>
+</body>
+</html>
