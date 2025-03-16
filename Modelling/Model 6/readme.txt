@@ -4,3 +4,5 @@ a common time range in which most of the features are present.
 
 Therefore after EDA, trying different augmentation and transformation on the dataset 
 before training the model.
+
+Using of pycaret for easier model training and metrics
