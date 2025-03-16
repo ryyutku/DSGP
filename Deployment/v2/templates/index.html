@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Demand Forecast</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Fuel Demand Forecast</h1>
+    <input type="file" id="file-input" accept=".csv, .xlsx" />
+    <button id="predict-button">Predict</button>
+    <div id="plotly-chart"></div>
+
+    <script>
+        document.getElementById('predict-button').addEventListener('click', function() {
+            const fileInput = document.getElementById('file-input');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please upload a file first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.error || "An error occurred");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Render the Plotly chart
+                const graphJSON = JSON.parse(data);
+                Plotly.newPlot('plotly-chart', graphJSON.data, graphJSON.layout);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert(error.message || "An error occurred while making the prediction.");
+            });
+        });
+    </script>
+</body>
+</html>
