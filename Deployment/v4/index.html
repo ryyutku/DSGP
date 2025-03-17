@@ -12,22 +12,20 @@
 </body>
 </html> -->
 
+
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetroVision</title>
 
-    <!-- Corrected CSS Link for Flask -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="home.css">
+
 </head>
 
 <body>
     <!-- Navigation bar -->
     <header>
-        <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></a>
+        <a href="#" class="logo"><img src="" alt=""></a>
         <ul class="navmenu">
             <li><a href="#">Home</a></li>
             <li><a href="#">Fuel Demand</a></li>
@@ -35,8 +33,9 @@
             <li><a href="#">Inventory</a></li>
             <li><a href="#">Carbon Emissions</a></li>
         </ul>
-    </header>
 
+    </header>
+<!-- ================================================================================================================================ -->
     <!-- Hero Image Section -->
     <section class="main-home">
         <div class="main-text">
@@ -46,6 +45,21 @@
 
     <!-- Model Predictions -->
     <section class="model-predictions">
+        <!-- <div class="demand-box1">
+
+            <div class="para1-text">
+                <h3>Fuel Demand</h3>
+                <p>Fuel demand forecasting is the process of predicting future fuel consumption based on historical data, market trends, and external factors such as economic conditions and weather patterns. Accurate demand forecasting helps businesses and policymakers optimize fuel supply, manage inventory efficiently, and reduce costs while ensuring a steady supply for consumers.</p>
+            </div>
+    
+            <div class="model-prediction">
+                <div class="demand-forecast1">
+                    <img src="predictions.png" alt="">
+                </div>
+            </div>
+
+        </div> -->
+
         <h1>Upload CSV File for Fuel Demand Forecasting</h1>
         <form action="/predict" method="post" enctype="multipart/form-data">
             <input type="file" name="file">
@@ -53,12 +67,19 @@
         </form>
     </section>
 
+    
+<!-- ================================================================================================================================ -->
     <!-- Footer section -->
     <section class="footer">
         <div class="footer-info">
+
             <div class="first-info">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+                <img src="HomeImg/logo.png" alt="">
+
+                <!-- <p>1234 Elm Avenue <br> Springfield, MA 01103 <br>United States</p>
+                <p></p>   -->
                 <p>PetroVision@gmail.com</p>
+
                 <div class="social-icon">
                     <a href="#"><i class='bx bxl-facebook-circle'></i></a>
                     <a href="#"><i class='bx bxl-twitter'></i></a>
@@ -68,20 +89,37 @@
                 </div>
             </div>
 
+
             <div class="second-info">
                 <h4>Support</h4>
-                <a href="#"><p>Contact Us</p></a>
-                <a href="#"><p>About Page</p></a>
+                <a href="#">
+                    <p>Contact Us</p>
+                </a>
+                <a href="#">
+                    <p>About Page</p>
+                </a>
             </div>
 
             <div class="third-info">
                 <h4>Learn</h4>
-                <a href="#"><p>Fuel Demand</p></a>
-                <a href="#"><p>Fuel Prices</p></a>
-                <a href="#"><p>Inventory</p></a>
-                <a href="#"><p>Carbon Emissions</p></a>
+                <a href="#">
+                    <p>Fuel Demand</p>
+                </a>
+                <a href="#">
+                    <p>Fuel Prices</p>
+                </a>
+                <a href="#">
+                    <p>Inventory</p>
+                </a>
+                <a href="#">
+                    <p>Carbon Emissions</p>
+                </a>
+
             </div>
+
+        
         </div>
     </section>
+
+
 </body>
-</html>
