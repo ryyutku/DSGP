@@ -1,0 +1,18 @@
+This commit adds the `plot_stock_levels` function, which generates a matplotlib plot showing the current stock level and reorder level over time for a given fuel type.
+
+The plot includes:
+-   Current stock level line (blue).
+-   Reorder level line (dashed red).
+-   Clear axis labels and title.
+-   Legend and grid for improved readability.
+
+def plot_stock_levels(group):
+    plt.figure(figsize=(10, 6))
+    plt.plot(group.index, group['Current_Stock'], label='Current Stock', color='blue')
+    plt.plot(group.index, group['Reorder_Level'], label='Reorder Level', color='red', linestyle='dashed')
+    plt.legend()
+    plt.xlabel('Date')
+    plt.ylabel('Stock Level')
+    plt.title(f"Stock vs Reorder Level for {group['Fuel_Type'].iloc[0]}")
+    plt.grid(True)
+    plt.show()
