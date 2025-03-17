@@ -1,0 +1,6 @@
+Implement ARIMA and Random Forest model training for stock prediction
+
+This commit adds functions to train ARIMA and Random Forest models for predicting future stock levels.
+
+-   `train_ARIMA`: Uses `auto_arima` for automated ARIMA model selection and includes error handling and logging.
+-   `train_RandomForest`: Implements a Random Forest Regressor with `MinMaxScaler` normalization and a train/test split for evaluation.
