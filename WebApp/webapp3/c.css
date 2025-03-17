@@ -1,5 +1,6 @@
 /* Ensure sections stack vertically */
 section {
+<<<<<<< Updated upstream
     display: block; /* This is the default, but it ensures no other rules override it */
     width: 100%; /* Ensure sections take full width */
     margin: 0; /* Remove default margin */
@@ -98,3 +99,103 @@ section {
   #myTable th {
     background-color: #f2f2f2;
   }
+=======
+  display: block; /* This is the default, but it ensures no other rules override it */
+  width: 100%; /* Ensure sections take full width */
+  margin: 0; /* Remove default margin */
+  padding: 20px 0; /* Add some vertical padding for spacing */
+  box-sizing: border-box; /* Include padding in the element's total width/height */
+}
+
+/* Hero Image Section */
+.main-home {
+  background-color: #f4f4f4; /* Example background color */
+  text-align: center; /* Center-align text */
+  padding: 50px 0; /* Add more padding for emphasis */
+}
+
+/* Model Predictions Section */
+.model-predictions {
+  background-color: #fff; /* Example background color */
+  padding: 20px; /* Add padding for spacing */
+}
+
+/* Footer Section */
+.footer {
+  background-color: #333; /* Example background color */
+  color: #fff; /* Text color */
+  padding: 20px 0; /* Add padding for spacing */
+}
+
+/* Dashboard Styling */
+.dashboard {
+  width: 100%; /* Ensure dashboard takes full width */
+  max-width: 1200px; /* Limit maximum width for better readability */
+  margin: 0 auto; /* Center the dashboard horizontally */
+  padding: 20px; /* Add padding for spacing */
+  background-color: #f9f9f9; /* Example background color */
+  border: 1px solid #ddd; /* Example border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example shadow */
+}
+
+/* Controls Styling */
+.controls {
+  margin-bottom: 20px; /* Add space below the buttons */
+}
+
+.controls button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+/* Display Area Styling */
+.display-area {
+  border: 1px solid #ddd;
+  padding: 20px;
+  min-height: 300px;
+}
+
+/* Content Styling */
+.content {
+  display: none;
+}
+
+.content.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Chart Styling */
+#myChart {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Table Styling */
+#myTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#myTable th, #myTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#myTable th {
+  background-color: #f2f2f2;
+}
+>>>>>>> Stashed changes
