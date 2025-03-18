@@ -7,6 +7,8 @@
     <!-- Link to CSS -->
     <link rel="stylesheet" href="c.css">
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="styles.css">
+
 
 </head>
 
@@ -30,6 +32,34 @@
             <h1>PetroVision</h1>
         </div>
     </section>
+
+    <!-- Button section -->
+    <section class="prediction-panel" id="predictionPanel">
+        <div class="dropdown-container">
+            <label for="fuelType">Select Fuel Type:</label>
+            <select id="fuelType">
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+            </select>
+
+            <label for="predictionPeriod">Select Prediction Period:</label>
+            <select id="predictionPeriod">
+                <option value="1_month">Next Month</option>
+                <option value="3_months">3 Months</option>
+                <option value="6_months">6 Months</option>
+                <option value="12_months">12 Months</option>
+            </select>
+        </div>
+        <button id="generateChart">Generate Prediction</button>
+
+        <!-- Chart Container -->
+        <div id="chartContainer">
+            <img id="predictionChart" src="" alt="Fuel Price Chart">
+        </div>
+    </section>
+
+
+
 
     <!-- Model Predictions -->
     <section class="model-predictions">
