@@ -1,18 +1,23 @@
-
-
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Demand Forecasting</title>
 
     <!-- Link to CSS -->
     <link rel="stylesheet" href="c.css">
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="styles.css">
 
-
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+
     <!-- Navigation bar -->
     <header>
         <a href="#" class="logo"><img src="" alt=""></a>
@@ -23,9 +28,8 @@
             <li><a href="#">Inventory</a></li>
             <li><a href="#">Carbon Emissions</a></li>
         </ul>
-
     </header>
-<!-- ================================================================================================================================ -->
+
     <!-- Hero Image Section -->
     <section class="main-home">
         <div class="main-text">
@@ -33,8 +37,10 @@
         </div>
     </section>
 
-    <!-- Button section -->
+    <!-- Prediction Panel -->
     <section class="prediction-panel" id="predictionPanel">
+        <h2>Upload CSV for Prediction</h2>
+
         <div class="dropdown-container">
             <label for="fuelType">Select Fuel Type:</label>
             <select id="fuelType">
@@ -50,18 +56,11 @@
                 <option value="12_months">12 Months</option>
             </select>
         </div>
+
+        <!-- File Upload -->
+        <input type="file" id="fileUpload" accept=".csv">
         <button id="generateChart">Generate Prediction</button>
-
-        
-
-        <!-- Chart Container -->
-        <div id="chartContainer">
-            <img id="predictionChart" src="" alt="Fuel Price Chart">
-        </div>
     </section>
-
-
-
 
     <!-- Model Predictions -->
     <section class="model-predictions">
@@ -70,49 +69,36 @@
                 <button id="chartBtn">Chart</button>
                 <button id="tableBtn">Table</button>
             </div>
+
             <div class="display-area">
-                <div id="chartContainer" class="content">
-                    <!-- Chart will be displayed here -->
+                <!-- Chart Section -->
+                <div id="chartContainer" class="content active">
                     <canvas id="myChart"></canvas>
                 </div>
+
+                <!-- Table Section -->
                 <div id="tableContainer" class="content hidden">
-                    <!-- Table will be displayed here -->
                     <table id="myTable">
                         <thead>
                             <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
+                                <th>Time</th>
+                                <th>Predicted Fuel Demand</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Data 1</td>
-                                <td>Data 2</td>
-                                <td>Data 3</td>
-                            </tr>
-                            <!-- Add more rows as needed -->
+                            <!-- Table data will be dynamically inserted here -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
     </section>
 
-    
-<!-- ================================================================================================================================ -->
-    <!-- Footer section -->
+    <!-- Footer Section -->
     <section class="footer">
         <div class="footer-info">
-
             <div class="first-info">
-                <img src="HomeImg/logo.png" alt="">
-
-                <!-- <p>1234 Elm Avenue <br> Springfield, MA 01103 <br>United States</p>
-                <p></p>   -->
                 <p>PetroVision@gmail.com</p>
-
                 <div class="social-icon">
                     <a href="#"><i class='bx bxl-facebook-circle'></i></a>
                     <a href="#"><i class='bx bxl-twitter'></i></a>
@@ -122,39 +108,23 @@
                 </div>
             </div>
 
-
             <div class="second-info">
                 <h4>Support</h4>
-                <a href="#">
-                    <p>Contact Us</p>
-                </a>
-                <a href="#">
-                    <p>About Page</p>
-                </a>
+                <a href="#"><p>Contact Us</p></a>
+                <a href="#"><p>About Page</p></a>
             </div>
 
             <div class="third-info">
                 <h4>Learn</h4>
-                <a href="#">
-                    <p>Fuel Demand</p>
-                </a>
-                <a href="#">
-                    <p>Fuel Prices</p>
-                </a>
-                <a href="#">
-                    <p>Inventory</p>
-                </a>
-                <a href="#">
-                    <p>Carbon Emissions</p>
-                </a>
-
+                <a href="#"><p>Fuel Demand</p></a>
+                <a href="#"><p>Fuel Prices</p></a>
+                <a href="#"><p>Inventory</p></a>
+                <a href="#"><p>Carbon Emissions</p></a>
             </div>
-
-        
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 
 </body>
+</html>
