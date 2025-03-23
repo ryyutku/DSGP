@@ -5,9 +5,11 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from werkzeug.utils import secure_filename
 import os
+print(os.listdir())
+
 
 # Load the model
-model = tf.keras.models.load_model("co2_emission_lstm_model.h5")
+model = tf.keras.models.load_model("C:\Users\chana\OneDrive\Documents\IIT\DSGP\chanul\DSGP\webapp1\webapp1\co2_emission_lstm_model.h5")
 
 # Initialize scaler (this should be the same scaler you used during training)
 scaler = MinMaxScaler()
