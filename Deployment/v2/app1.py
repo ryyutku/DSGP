@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 import pandas as pd
 import pickle
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
 
 app = Flask(__name__)
@@ -45,14 +44,18 @@ def predict():
         df.drop(columns=['date'], inplace=True)
 
     # Drop columns that were removed during training
-    drop_cols = ['Household_income', 'Fuel_other_manufacture', 'Tax on Export', 'Colombo port calls',
-                 'Port Stay Duration', 'GDP: Gross National Income', 'Government Debt']
-
-    df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True)
+    drop_cols = [
+        'Household_income', 'Fuel_other_manufacture', 'Tax on Export', 'Colombo port calls',
+        'Port Stay Duration', 'GDP: Gross National Income', 'Government Debt',
+        'Taxes_on_Customs_and_Other_Import Duties', 'year', 'month', 'day', 'weekday', 'quarter'
+    ]
+    
+    df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True, errors='ignore')
 
     # Apply feature scaling
     numerical_cols = df.select_dtypes(include=['float64', 'int64']).columns
-    df[numerical_cols] = feature_scaler.transform(df[numerical_cols])
+    if len(numerical_cols) > 0:
+        df[numerical_cols] = feature_scaler.transform(df[numerical_cols])
 
     # Predict fuel demand
     predictions = model.predict(df)

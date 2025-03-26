@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetroVision</title>
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <header>
+        <a href="#" class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"></a>
+        <ul class="navmenu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Fuel Demand</a></li>
+            <li><a href="#">Fuel Prices</a></li>
+            <li><a href="#">Inventory</a></li>
+            <li><a href="#">Carbon Emissions</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Image Section -->
+    <section class="main-home">
+        <!-- <div class="main-text">
+            <h1>PetroVision</h1>
+            <p>Predicting Fuel Demand for a Sustainable Future</p>
+            <a href="#intro" class="btn">Learn More</a>
+        </div> -->
+    </section>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="intro-section">
+        <h2>Fuel Demand Forecasting in Sri Lanka</h2>
+        <p>
+            Fuel demand forecasting is essential for ensuring a stable energy supply, optimizing inventory management, and reducing carbon emissions. In Sri Lanka, unpredictable economic factors and supply chain issues make accurate demand forecasting crucial for decision-making in the fuel industry.
+        </p>
+    </section>
+
+    <!-- Model Predictions -->
+    <section class="model-predictions">
+        <h1>Upload CSV File for Fuel Demand Forecasting</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit" class="btn">Upload and Predict</button>
+        </form>
+    </section>
+
+    <!-- Footer section -->
+    <section class="footer">
+        <div class="footer-info">
+            <div class="first-info">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+                <p>PetroVision@gmail.com</p>
+                <div class="social-icon">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+                    <a href="#"><i class='bx bxl-youtube'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </div>
+
+            <div class="second-info">
+                <h4>Support</h4>
+                <a href="#"><p>Contact Us</p></a>
+                <a href="#"><p>About Page</p></a>
+            </div>
+
+            <div class="third-info">
+                <h4>Learn</h4>
+                <a href="#"><p>Fuel Demand</p></a>
+                <a href="#"><p>Fuel Prices</p></a>
+                <a href="#"><p>Inventory</p></a>
+                <a href="#"><p>Carbon Emissions</p></a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
