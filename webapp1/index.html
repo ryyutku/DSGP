@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO2 Damage Forecasting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Set a larger fixed height for the graph container */
+        #chartContainer {
+            height: 400px; /* Increased height for better visibility */
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <!-- Increase the width of the container -->
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-3xl text-center">
+        <h1 class="text-3xl font-bold mb-6">📈 CO2 Damage Forecasting</h1>
+        
+        <label for="csvFile" class="block text-gray-700 font-semibold mb-3 text-lg">Upload CSV File:</label>
+        <input type="file" id="csvFile" accept=".csv" class="border p-3 rounded w-full mb-6 text-lg">
+        
+        <button onclick="uploadFile()" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition text-lg">
+            Upload & Predict
+        </button>
+
+        <p id="statusMessage" class="text-gray-600 mt-6 text-lg"></p>
+
+        <h2 class="text-xl font-semibold mt-8">Forecast Chart:</h2>
+        <!-- Wrap the canvas in a container with a fixed height -->
+        <div id="chartContainer" class="mt-6">
+            <canvas id="forecastChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let chartInstance = null; // Store chart instance 
+
+        function uploadFile() {
+            let fileInput = document.getElementById("csvFile");
+            let file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a CSV file.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", file);
+            
+            document.getElementById("statusMessage").innerText = "Processing... Please wait.";
+            
+            fetch("http://localhost:5000/upload", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+            console.log("Received data:", data); // Debugging
+            if (data.error) {
+                document.getElementById("statusMessage").innerText = "Error: " + data.error;
+            } else {
+                document.getElementById("statusMessage").innerText = "Prediction successful!";
+                console.log("Predictions received:", data.predictions); // Debugging line
+                updateChart(data.predictions);
+            }
+        })
+
+            .catch(error => {
+                console.error("Fetch error:", error);
+                document.getElementById("statusMessage").innerText = "An error occurred.";
+            });
+        }
+function updateChart(predictions) {
+    console.log("Raw Predictions Data:", predictions); // Debugging
+
+    if (!Array.isArray(predictions) || predictions.length === 0) {
+        console.error("Invalid predictions:", predictions);
+        return;
+    }
+
+    // Refresh the canvas before updating
+    document.getElementById("chartContainer").innerHTML = '<canvas id="forecastChart"></canvas>';
+    const ctx = document.getElementById("forecastChart").getContext("2d");
+
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    // Ensure predictions are numbers
+    const cleanedPredictions = predictions.map(p => Number(p)).filter(p => !isNaN(p));
+
+    console.log("Cleaned Predictions for Chart:", cleanedPredictions); // Debugging
+
+    chartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: cleanedPredictions.map((_, i) => `Period ${i + 1}`),
+            datasets: [{
+                label: "CO2 Damage Forecast",
+                data: cleanedPredictions,
+                borderColor: "rgba(255, 99, 132, 1)",
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderWidth: 2,
+                pointRadius: 4,
+                pointBackgroundColor: "red"
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { title: { display: true, text: "Time Period", font: { size: 14 } } },
+                y: { title: { display: true, text: "CO2 Damage (in units)", font: { size: 14 } } }
+            },
+            plugins: {
+                legend: { display: true, position: 'top', labels: { font: { size: 14 } } }
+            }
+        }
+    });
+}
+
+    </script>
+</body>
+</html>
