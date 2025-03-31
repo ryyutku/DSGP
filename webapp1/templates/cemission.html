@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emissions Prediction</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Emissions Prediction</h1>
+    
+    <input type="file" id="csvFile" accept=".csv">
+    <button onclick="uploadAndPredict()">Predict</button>
+    
+    <div id="plot"></div>
+    
+    <script>
+        function uploadAndPredict() {
+            const fileInput = document.getElementById('csvFile');
+            if (fileInput.files.length === 0) {
+                alert("Please upload a CSV file.");
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Error: " + data.error);
+                    return;
+                }
+                
+                plotResults(data.predictions);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        
+        function plotResults(predictions) {
+            const trace = {
+                x: Array.from({ length: predictions.length }, (_, i) => i + 1),
+                y: predictions,
+                mode: 'lines+markers',
+                type: 'scatter'
+            };
+            
+            const layout = {
+                title: 'Predicted Emissions Over Time',
+                xaxis: { title: 'Time Step' },
+                yaxis: { title: 'Predicted Emissions' }
+            };
+            
+            Plotly.newPlot('plot', [trace], layout);
+        }
+    </script>
+</body>
+</html>
