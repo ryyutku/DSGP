@@ -139,6 +139,25 @@
             border-radius: 10px;
         }
 
+        .stat-box .unit {
+            font-size: 0.8em;
+            color: #666;
+            font-weight: normal;
+            margin-left: 3px;
+        }
+        
+        .stat-box p {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .stat-box h4 {
+            margin-bottom: 8px;
+            color: var(--main-color);
+        }
+
         /* File Upload Area */
         #file-upload-area {
             border: 2px dashed #ddd;
@@ -521,12 +540,41 @@
                 });
             }
             
-            function formatNumber(num) {
-                return new Intl.NumberFormat('en-US', { 
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2
-                }).format(num);
+            function displayStats(stats) {
+                const statsContainer = document.getElementById('stats-container');
+                statsContainer.innerHTML = '';
+                
+                // Formatting function for USD in millions
+                const formatUSDmn = (value) => {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }).format(value / 1); // Divide by 1 million to show as "mn"
+                };
+                
+                const statItems = [
+                    { label: 'Average CO₂ Damage', value: stats.mean, formatter: formatUSDmn },
+                    { label: 'Minimum CO₂ Damage', value: stats.min, formatter: formatUSDmn },
+                    { label: 'Maximum CO₂ Damage', value: stats.max, formatter: formatUSDmn },
+                    { label: 'Latest CO₂ Damage', value: stats.latest_value, formatter: formatUSDmn },
+                    { label: 'Next Predicted CO₂ Damage', value: stats.predicted_next, formatter: formatUSDmn }
+                ];
+                
+                statItems.forEach(item => {
+                    const statBox = document.createElement('div');
+                    statBox.className = 'stat-box';
+                    statBox.innerHTML = `
+                        <h4>${item.label}</h4>
+                        <p>${item.formatter(item.value)} 
+                        <span class="unit">USD mn</span>
+                        </p>
+                    `;
+                    statsContainer.appendChild(statBox);
+                });
             }
+            
             
             function createHistoricalChart(dates, actual, predicted) {
                 const ctx = document.getElementById('emissions-chart').getContext('2d');
