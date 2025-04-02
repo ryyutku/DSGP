@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .dropdown-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dropdown-container label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .dropdown-container select {
+            width: 200px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <header>
+        <a href="#" class="logo"><img src="hero.jpeg" alt=""></a>
+        <ul class="navmenu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Fuel Demand</a></li>
+            <li><a href="#">Fuel Prices</a></li>
+            <li><a href="#">Inventory</a></li>
+            <li><a href="#">Carbon Emissions</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Image Section -->
+    <section class="main-home">
+        <div class="main-text">
+            <h1>PetroVision</h1>
+        </div>
+    </section>
+
+    <!-- Model Predictions -->
+    <section class="model-predictions">
+        <div class="demand-box1">
+            <div class="para1-text">
+                <h3>Fuel price prediction</h3>
+                <p>The fuel price prediction component involves the predicting of fuel prices based on social, economic, and country-specific factors that affect the fuel industry as a whole. The goal is to incentivize a data-driven approach that would encourage better policies and decision-making.</p>
+            </div>
+
+            <!-- Dropdown menus -->
+            <div class="dropdown-container">
+                <div>
+                    <label for="fuelType">Select Fuel Type:</label>
+                    <select id="fuelType">
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="predictionPeriod">Select Prediction Period:</label>
+                    <select id="predictionPeriod">
+                        <option value="1_month">Next Month</option>
+                        <option value="3_months">3 Months</option>
+                        <option value="6_months">6 Months</option>
+                        <option value="12_months">12 Months</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="model-prediction" style="margin-top: 30px;">
+                <div class="demand-forecast1">
+                    <img src="fuelpricepredictions.png" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <section class="footer">
+        <div class="footer-info">
+            <div class="first-info">
+                <img src="HomeImg/logo.png" alt="">
+                <p>PetroVision@gmail.com</p>
+                <div class="social-icon">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+                    <a href="#"><i class='bx bxl-youtube'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </div>
+
+            <div class="second-info">
+                <h4>Support</h4>
+                <a href="#"><p>Contact Us</p></a>
+                <a href="#"><p>About Page</p></a>
+            </div>
+
+            <div class="third-info">
+                <h4>Learn</h4>
+                <a href="#"><p>Fuel Demand</p></a>
+                <a href="#"><p>Fuel Prices</p></a>
+                <a href="#"><p>Inventory</p></a>
+                <a href="#"><p>Carbon Emissions</p></a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

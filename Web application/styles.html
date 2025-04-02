@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetroVision - Fuel Price Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <a href="#" class="logo"><img src="hero.jpeg" alt="PetroVision"></a>
+        <ul class="navmenu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Fuel Demand</a></li>
+            <li><a href="#">Fuel Prices</a></li>
+            <li><a href="#">Inventory</a></li>
+            <li><a href="#">Carbon Emissions</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Fuel Price Prediction</h1>
+        </div>
+    </section>
+
+    <!-- Description Section -->
+    <section class="description">
+        <div class="content">
+            <h2>Fuel Price Prediction</h2>
+            <p>Predict fuel prices based on economic and social factors, providing a data-driven approach for better policy-making.</p>
+            <button id="visualizeBtn">Visualize Predictions</button>
+        </div>
+    </section>
+
+    <!-- Prediction Panel (Hidden Initially) -->
+    <section class="prediction-panel" id="predictionPanel">
+        <div class="dropdown-container">
+            <label for="fuelType">Select Fuel Type:</label>
+            <select id="fuelType">
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+            </select>
+
+            <label for="predictionPeriod">Select Prediction Period:</label>
+            <select id="predictionPeriod">
+                <option value="1_month">Next Month</option>
+                <option value="3_months">3 Months</option>
+                <option value="6_months">6 Months</option>
+                <option value="12_months">12 Months</option>
+            </select>
+        </div>
+        <button id="generateChart">Generate Prediction</button>
+
+        <!-- Chart Container -->
+        <div id="chartContainer">
+            <img id="predictionChart" src="" alt="Fuel Price Chart">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
