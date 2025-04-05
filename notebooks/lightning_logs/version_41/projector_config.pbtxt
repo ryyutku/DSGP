@@ -1,0 +1,5 @@
+embeddings {
+  tensor_name: "series_id:00129"
+  metadata_path: "00129/series_id/metadata.tsv"
+  tensor_path: "00129/series_id/tensors.tsv"
+}
