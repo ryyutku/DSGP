@@ -1,0 +1,15 @@
+filename,dates,money_values,percentages,fuel_types,product_codes,policy_actions,legal_references,date_references,quantitative_measures,special_use_cases
+2013-1-15_text.txt,[],[],"['30%', '30%', '60%', '50%']","Diesel, Petrol","HS Code, 87.03, 8703.31.70, 8703.32.51, 8703.32.59, 8703.32.71, 8703.32.79","Exempt, Exemption, Concession, Concessionary rates, Rescind, Rescinded, Amendment, Order under Section 3, Order under Section 3C","Excise (Special Provisions) Act, No. 13 of 1989, Excise, Act, Ministry of Finance, Secretary to the Treasury, Director General of Excise, Circular No., Made, Order under","Gazette No., rescinded","%, cc, Rs.","Disaster, Reconstruction, Ship stores, Funeral undertakers, Primary holder of Sri Lanka Nation Building Bond, SLNBB, Financial leasing, Consolidated Fund, Vehicles, Import"
+2013-1-22 x_text.txt,"['st March  , 20']","['Rs. 10', 'Rs. 10', 'Rs. 10', 'Rs. 10']","['5%', '5%', '5%', '5%']",,,,"Act, Order under",Effective date,"%, per kg, cc, Rs.",
+2013-1-9 x_text.txt,['th January  2013'],[],[],,,Concession,"Excise, Act, Levy, Made, Order under",,"%, percent",Vehicles
+2013-11-20_text.txt,['th November  2013'],[],[],"Petroleum, Petrol",,Exempt,"Act, Ministry of Finance, Levy, Made",,"%, cc, Rs.",
+2013-11-21 x_text.txt,[],['Rs. 300'],[],,,,"Act, Ministry of Finance",,"%, cc, Rs.",
+2013-11-26_text.txt,['th November  2013'],[],[],,,Exempt,"Act, Ministry of Finance, Made",,"%, cc, Rs., percent",Engine
+2013-12-27_text.txt,[],[],[],,,,"Act, Made",,"%, cc, rupees",Import
+2013-4-3 x_text.txt,"['th April , 201']","['Rs. 50', 'Rs. 350', 'Rs. 400', 'Rs. 450', 'Rs. 500', 'Rs. 700', 'Rs. 800', 'Rs. 75', 'Rs. 350', 'Rs. 400', 'Rs. 450', 'Rs. 500', 'Rs. 700', 'Rs. 800', 'Rs. 100', 'Rs. 200', 'Rs. 150', 'Rs. 800']",[],,,"Excise duty, Rescind, Rescinded","Excise, Act, Ministry of Finance",rescinded,"%, cc, Rs.",Import
+2013-5-10 x_text.txt,[],['Rs. 50.00'],[],,,Order under Section 3,"Act, Ministry of Finance, Made, Order under",,"%, Rs.",
+2013-5-31 x_text.txt,['th May  2013'],['Rs.500'],[],,,,"Act, Ministry of Finance",,"%, cc, Rs.",
+2013-7-11_text.txt,"['st February  2013', 'th March  2013']",[],['65%'],,,"Exempt, Exemption, Concession","Act, Ministry of Finance, Made",Gazette No.,"%, rupees, percent",Import
+2013-7-29 x_text.txt,[],"['Rs. 1,110.00', 'Rs. 1,250.00', 'Rs. 110.00', 'Rs.130.00']","['5%', '5%']",,,"Excise duty, Rescind, Rescinded","Excise, Act, Ministry of Finance, Made","Published in Gazette, rescinded","%, cc, Rs., rupees",
+2013-8-12_text.txt,[],"['LKR 100', 'LKR 50']",[],,,"Rescind, Amendment, Effective from","Act, Ministry of Finance, Issues, Made, Order under",,"%, cc, LKR, Rs., percent",
+2013-9-17_text.txt,['th January  1982'],[],"['50%', '50%', '50%', '50%', '50%', '5%', '5%']",,,"Exempt, Exemption","Act, Ministry of Finance, Made",,"%, cc, Rs.","Import, Harbour, Engine"
