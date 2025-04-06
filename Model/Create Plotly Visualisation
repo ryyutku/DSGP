@@ -1,0 +1,25 @@
+# Plotly Graph
+def plot_stock_levels_plotly(group, forecast):
+    fuel_type = group['Fuel_Type'].iloc[0]
+
+    traces = [
+        go.Scatter(x=group.index, y=group['Current_Stock'], mode='lines', name='Current Stock', line=dict(color='blue')),
+        go.Scatter(x=group.index, y=group['Reorder_Level'], mode='lines', name='Reorder Level', line=dict(color='red', dash='dash'))
+    ]
+
+    # Append forecast to future dates
+    if forecast is not None:
+        last_date = group.index[-1]
+        future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=len(forecast), freq='D')
+        traces.append(go.Scatter(x=future_dates, y=forecast, mode='lines', name='Forecast', line=dict(color='green', dash='dot')))
+
+    layout = go.Layout(
+        title=f'Stock vs Reorder Level for {fuel_type}',
+        xaxis=dict(title='Date'),
+        yaxis=dict(title='Stock Level'),
+        legend=dict(x=0, y=1),
+        template='plotly_white'
+    )
+
+    fig = go.Figure(data=traces, layout=layout)
+    return plot(fig, output_type='div', include_plotlyjs=False)
