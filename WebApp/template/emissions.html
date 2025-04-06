@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetroVision - CO2 Emissions Prediction</title>
+    
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Combined CSS from home.css and styles.css */
+        :root {
+            --main-color: rgb(154, 199, 227);
+            --hover-color: rgb(85, 125, 244);
+            --text-color: black;
+            --ash-color: #f3f4f6;
+            --bg-color: white;
+            --box-shadow: 2px 2px 10px 4px rgb(14 55 54/ 13%);
+        }
+
+        *::selection {
+            color: aliceblue;
+            background-color: rgb(254, 167, 181);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            text-transform: capitalize;
+            list-style: none;
+            scroll-behavior: smooth;
+            font-family: "Montserrat", sans-serif;
+            transition: all .2s linear;
+            outline: none;
+            border: none;
+            font-size: 2vh;
+        }
+
+        p {
+            line-height: 1.6; 
+            align-content: left;
+        }
+        
+        h3 + p {
+            margin-top: 10%;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0%;
+            right: 0%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 10%;
+            background-color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .logo img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .navmenu {
+            display: flex;
+        }
+
+        .navmenu a {
+            color: var(--main-color);
+            font-size: 16px;
+            text-transform: capitalize;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all .42s ease;
+        }
+
+        .navmenu a:hover {
+            transform: scale(1.1);
+            color: var(--hover-color);
+        }
+
+        /* Hero Section */
+        section {
+            padding: 5% 10%;
+        }
+
+        .main-home {
+            width: 100%;
+            height: 60vh;
+            background-image: url(static\images\hero.jpeg);
+            background-position: center;
+            background-size: cover;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            align-items: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        .main-text {
+            margin-left: -90px;
+        }
+
+        .main-text h2 {
+            color: black;
+            font-size: 30px;
+            text-transform: capitalize;
+            font-weight: 500;
+        }
+
+        .main-text h1 {
+            color: white;
+            font-size: 50px;
+            text-transform: capitalize;
+            font-weight: 700;
+        }
+
+        /* Dashboard Styling */
+        .dashboard {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .stat-box .unit {
+            font-size: 0.8em;
+            color: #666;
+            font-weight: normal;
+            margin-left: 3px;
+        }
+        
+        .stat-box p {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .stat-box h4 {
+            margin-bottom: 8px;
+            color: var(--main-color);
+        }
+
+        /* File Upload Area */
+        #file-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        #file-upload-area:hover {
+            border-color: var(--main-color);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #file-name {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Prediction Results */
+        #results-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            height: 400px;
+            margin-bottom: 30px;
+        }
+
+        #stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            color: var(--main-color);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .stat-box p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Button Styling */
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--main-color);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all .42s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--hover-color);
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading and Error Messages */
+        #loading-indicator {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #error-message {
+            display: none;
+            color: #d9534f;
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            transform: translateX(-50%);
+            background-color: #f3f4f6;
+            padding: 40px 40px;
+            box-sizing: border-box;
+        }
+
+        .footer-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, auto));
+            gap: 3rem;
+        }
+
+        .first-info img {
+            width: 140px;
+            height: auto;
+        }
+
+        .footer-info h4 {
+            color: #212529;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .footer-info p {
+            color: #565656;
+            font-size: 14px;
+            font-weight: 480;
+            text-transform: capitalize;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all .42s;
+        }
+
+        .footer-info p:hover {
+            color: var(--hover-color);
+            transform: scale(1.1);
+        }
+
+        .social-icon i {
+            color: #565656;
+            margin-right: 10px;
+            font-size: 20px;
+            transition: all .42s;
+        }
+
+        .social-icon i:hover {
+            color: var(--hover-color);
+            transform: scale(1.3);
+        }
+        .profile-initial {
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header class="flex items-center justify-between px-6 py-4 bg-white shadow">
+     <a href="#" class="logo">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}?v=1.0" alt="PetroVision Logo">
+    </a>
+    <ul class="navmenu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Fuel Demand</a></li>
+        <li><a href="#">Fuel Prices</a></li>
+        <li><a href="#">Inventory</a></li>
+        <li><a href="#">Carbon Emissions</a></li>
+    </ul>
+
+    <!-- User profile + logout -->
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="profile-initial">
+            {% if username %}{{ username[0]|upper }}{% endif %}
+        </div>
+        <form method="GET" action="{{ url_for('logout') }}">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+</header>
+
+    <!-- Hero Image Section with fallback background -->
+    <section class="main-home" style="background: #f4f4f4 url('{{ url_for('static', filename='images/hero.jpeg') }}') no-repeat center center/cover">
+        <div class="main-text">
+            <h1>PetroVision</h1>
+            <h2>CO2 Emissions Prediction System</h2>
+        </div>
+    </section>
+
+    <!-- Model Predictions Section -->
+    <section class="model-predictions">
+        <div class="dashboard">
+            <!-- File Upload Area -->
+            <div id="file-upload-area">
+                <h3>Upload Your CO2 Emissions Data (CSV)</h3>
+                <p>Drag & drop your file here or click to browse</p>
+                <p><small>Note: File should contain Date and CO2_Damage columns</small></p>
+                <input type="file" id="file-input" accept=".csv">
+                <div id="file-name"></div>
+            </div>
+            
+            <div id="error-message"></div>
+            
+            <button id="predict-button" class="btn" disabled>Predict CO2 Emissions</button>
+            
+            <div id="loading-indicator">
+                <p>Processing your file...</p>
+            </div>
+            
+            <!-- Results Section -->
+            <div id="results-section">
+                <h3>Prediction Results</h3>
+                <div id="stats-container"></div>
+                
+                <div class="chart-container">
+                    <canvas id="emissions-chart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="future-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="footer">
+        <div class="footer-info">
+            <div class="first-info">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo">
+                <p>PetroVision@gmail.com</p>
+                <div class="social-icon">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+                    <a href="#"><i class='bx bxl-youtube'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </div>
+            
+            <div class="second-info">
+                <h4>Support</h4>
+                <a href="#"><p>Contact Us</p></a>
+                <a href="#"><p>About Page</p></a>
+            </div>
+            
+            <div class="third-info">
+                <h4>Learn</h4>
+                <a href="#"><p>Fuel Demand</p></a>
+                <a href="#"><p>Fuel Prices</p></a>
+                <a href="#"><p>Inventory</p></a>
+                <a href="#"><p>Carbon Emissions</p></a>
+            </div>
+        </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-input');
+            const fileUploadArea = document.getElementById('file-upload-area');
+            const fileName = document.getElementById('file-name');
+            const predictButton = document.getElementById('predict-button');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const errorMessage = document.getElementById('error-message');
+            const resultsSection = document.getElementById('results-section');
+            const statsContainer = document.getElementById('stats-container');
+            
+            let emissionsChart = null;
+            let futureChart = null;
+            
+            // Handle file upload area click
+            fileUploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // Handle file drag and drop
+            fileUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#4CAF50';
+            });
+            
+            fileUploadArea.addEventListener('dragleave', function() {
+                fileUploadArea.style.borderColor = '#ddd';
+            });
+            
+            fileUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#ddd';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            function handleFileSelect() {
+                if (fileInput.files.length) {
+                    const file = fileInput.files[0];
+                    
+                    if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+                        showError('Please upload a CSV file');
+                        predictButton.disabled = true;
+                        return;
+                    }
+                    
+                    fileName.textContent = file.name;
+                    predictButton.disabled = false;
+                    errorMessage.style.display = 'none';
+                }
+            }
+            
+            // Handle prediction
+            predictButton.addEventListener('click', function() {
+                if (!fileInput.files.length) {
+                    showError('Please select a file first');
+                    return;
+                }
+                
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                
+                loadingIndicator.style.display = 'block';
+                resultsSection.style.display = 'none';
+                errorMessage.style.display = 'none';
+                predictButton.disabled = true;
+                
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'An error occurred while processing your file');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadingIndicator.style.display = 'none';
+                    resultsSection.style.display = 'block';
+                    predictButton.disabled = false;
+                    
+                    // Display statistics
+                    displayStats(data.stats);
+                    
+                    // Create charts
+                    createHistoricalChart(data.dates, data.actual, data.predicted);
+                    createFutureChart(data.future_dates, data.future_predictions, data.stats.latest_value);
+                })
+                .catch(error => {
+                    loadingIndicator.style.display = 'none';
+                    predictButton.disabled = false;
+                    showError(error.message);
+                });
+            });
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            function displayStats(stats) {
+                statsContainer.innerHTML = '';
+                
+                const statItems = [
+                    { label: 'Average CO2 Damage', value: formatNumber(stats.mean) },
+                    { label: 'Minimum CO2 Damage', value: formatNumber(stats.min) },
+                    { label: 'Maximum CO2 Damage', value: formatNumber(stats.max) },
+                    { label: 'Latest CO2 Damage', value: formatNumber(stats.latest_value) },
+                    { label: 'Next Predicted CO2', value: formatNumber(stats.predicted_next) }
+                ];
+                
+                statItems.forEach(item => {
+                    const statBox = document.createElement('div');
+                    statBox.className = 'stat-box';
+                    statBox.innerHTML = `
+                        <h4>${item.label}</h4>
+                        <p>${item.value}</p>
+                    `;
+                    statsContainer.appendChild(statBox);
+                });
+            }
+            
+            function displayStats(stats) {
+                const statsContainer = document.getElementById('stats-container');
+                statsContainer.innerHTML = '';
+                
+                // Formatting function for USD in millions
+                const formatUSDmn = (value) => {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }).format(value / 1); // Divide by 1 million to show as "mn"
+                };
+                
+                const statItems = [
+                    { label: 'Average CO₂ Damage', value: stats.mean, formatter: formatUSDmn },
+                    { label: 'Minimum CO₂ Damage', value: stats.min, formatter: formatUSDmn },
+                    { label: 'Maximum CO₂ Damage', value: stats.max, formatter: formatUSDmn },
+                    { label: 'Latest CO₂ Damage', value: stats.latest_value, formatter: formatUSDmn },
+                    { label: 'Next Predicted CO₂ Damage', value: stats.predicted_next, formatter: formatUSDmn }
+                ];
+                
+                statItems.forEach(item => {
+                    const statBox = document.createElement('div');
+                    statBox.className = 'stat-box';
+                    statBox.innerHTML = `
+                        <h4>${item.label}</h4>
+                        <p>${item.formatter(item.value)} 
+                        <span class="unit">USD mn</span>
+                        </p>
+                    `;
+                    statsContainer.appendChild(statBox);
+                });
+            }
+            
+            
+            function createHistoricalChart(dates, actual, predicted) {
+                const ctx = document.getElementById('emissions-chart').getContext('2d');
+                
+                if (emissionsChart) {
+                    emissionsChart.destroy();
+                }
+                
+                emissionsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [
+                            {
+                                label: 'Actual CO2 Damage',
+                                data: actual,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'Model Predictions',
+                                data: predicted,
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderDash: [5, 5],
+                                tension: 0.1,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Historical CO2 Damage vs. Model Predictions'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'CO2 Damage'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function createFutureChart(dates, predictions, lastValue) {
+                const ctx = document.getElementById('future-chart').getContext('2d');
+                
+                if (futureChart) {
+                    futureChart.destroy();
+                }
+                
+                // Prepare data with the last actual value as the starting point
+                const labels = ['Current'].concat(dates);
+                const data = [lastValue].concat(predictions);
+                
+                futureChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Projected CO2 Damage',
+                                data: data,
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                tension: 0.2,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Future CO2 Damage Projections (Next 12 Periods)'
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'CO2 Damage'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

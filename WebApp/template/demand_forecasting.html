@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demand Forecasting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/demand_forecasting">Demand Forecasting</a></li>
+                <li><a href="/fuel_predictions">Fuel Predictions</a></li>
+                <li><a href="/inventory_management">Inventory Management</a></li>
+                <li><a href="/carbon_emmission">Carbon Emissions</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Fuel Demand Forecasting</h1>
+        <p>Upload your PDF and CSV files below to start forecasting fuel demand.</p>
+
+        <div class="upload-forms">
+            <!-- Form for PDF Upload -->
+            <form action="/upload_pdf" method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="pdf_file">Upload PDF</label>
+                <input type="file" id="pdf_file" name="pdf_file" accept=".pdf" required aria-label="Upload PDF file">
+                <button type="submit">Upload PDF</button>
+            </form>
+
+            <br><br>
+
+            <!-- Form for CSV Upload -->
+            <form action="/upload_csv" method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="csv_file">Upload CSV</label>
+                <input type="file" id="csv_file" name="csv_file" accept=".csv" required aria-label="Upload CSV file">
+                <button type="submit">Upload CSV</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fuel Demand Forecasting</p>
+    </footer>
+</body>
+</html>
