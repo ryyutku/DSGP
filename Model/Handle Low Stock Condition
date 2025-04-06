@@ -1,0 +1,4 @@
+low_stock = group['Current_Stock'].iloc[-1] < group['Reorder_Level'].iloc[-1]
+
+if low_stock:
+    send_alert_email(fuel_type)
