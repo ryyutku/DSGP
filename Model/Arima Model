@@ -1,0 +1,11 @@
+# ARIMA Model
+def train_ARIMA(group):
+    try:
+        model = auto_arima(group['Current_Stock'], seasonal=False, trace=False,
+                           error_action='ignore', suppress_warnings=True)
+        model_fit = model.fit(group['Current_Stock'])
+        logging.info(f"ARIMA model trained for {group['Fuel_Type'].iloc[0]}")
+        return model_fit
+    except Exception as e:
+        logging.error(f"ARIMA training failed for {group['Fuel_Type'].iloc[0]}: {e}")
+        return None
