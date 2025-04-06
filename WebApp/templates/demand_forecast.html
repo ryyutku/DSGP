@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Demand</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/demand_forecast">Demand Forecasting</a></li>
+                <li><a href="/fuel_predictions">Fuel Predictions</a></li>
+                <li><a href="/inventory_management">Inventory Management</a></li>
+                <li><a href="/carbon_emmission">Carbon Emissions</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Upload Files for Demand Forecast</h1>
+        <p class="subheading">Please upload the necessary files below to proceed with the fuel demand forecasting.</p>
+        
+        <form action="/predict" method="POST" enctype="multipart/form-data" class="forecast-form">
+            <div class="form-group">
+                <label for="gazette_file">Upload Gazette Summary CSV(s):</label>
+                <input type="file" id="gazette_file" name="gazette_file" multiple required>
+                <p style="font-size: 0.9em; color: gray;">(You can select multiple files by holding Ctrl or Shift)</p>
+            </div>
+        
+            <div class="form-group">
+                <label for="fuel_data_file">Upload Fuel Consumption Data CSV:</label>
+                <input type="file" id="fuel_data_file" name="fuel_data_file" required>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" name="predict">Predict</button>
+            </div>
+        </form>
+    </div>
+
+    {% if forecast_table %}
+    <div class="results">
+        <h3>Fuel Consumption Forecast Table</h3>
+        {{ forecast_table|safe }}
+
+        <h3>Forecast Plot</h3>
+        <iframe src="{{ url_for('static', filename='forecast_plot.html') }}" width="100%" height="500px"></iframe>
+
+        <h3>Model Results</h3>
+        <img src="{{ url_for('static', filename='actual_vs_predicted.png') }}" width="100%">
+        <img src="{{ url_for('static', filename='loss_curve.png') }}" width="100%">
+    </div>
+    {% endif %}
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Fuel Demand Forecasting Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
