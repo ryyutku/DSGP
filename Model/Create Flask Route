@@ -1,0 +1,22 @@
+# Route
+@app.route('/')
+def index():
+    plots = {}
+    for fuel_type, group in inventory_data.groupby('Fuel_Type'):
+        arima_model = train_ARIMA(group)
+        forecast = forecast_inventory_ARIMA(arima_model, periods=7)
+        logging.info(f"Generated forecast for {fuel_type}: {forecast}")
+
+        plot_div = plot_stock_levels_plotly(group, forecast)
+        low_stock = group['Current_Stock'].iloc[-1] < group['Reorder_Level'].iloc[-1]
+
+        if low_stock:
+            send_alert_email(fuel_type)
+
+        plots[fuel_type] = {
+            'plot_div': plot_div,
+            'low_stock': low_stock,
+            'forecast': forecast.tolist() if forecast is not None else []
+        }
+
+    return render_template('index.html', plots=plots)
