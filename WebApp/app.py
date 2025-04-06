@@ -45,5 +45,9 @@ def upload_csv():
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     return 'CSV uploaded successfully!', 200
 
+@app.route('/emissions.html')
+def emissions():
+    return render_template('emissions.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
