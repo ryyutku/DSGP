@@ -1,0 +1,18 @@
+# Load Data
+try:
+    inventory_data = pd.read_csv("cleaned_inventory_dataset.csv")
+except Exception as e:
+    logging.error(f"Error loading dataset: {e}")
+    exit(1)
+
+# Data Cleanup
+required_columns = {'Date', 'Current_Stock', 'Fuel_Type', 'Reorder_Level'}
+if not required_columns.issubset(inventory_data.columns):
+    raise ValueError(f"Dataset must contain: {', '.join(required_columns)}")
+
+inventory_data['Date'] = pd.to_datetime(inventory_data['Date'])
+inventory_data.set_index('Date', inplace=True)
+inventory_data.sort_index(inplace=True)
+inventory_data['Current_Stock'] = pd.to_numeric(inventory_data['Current_Stock'], errors='coerce')
+inventory_data['Reorder_Level'] = pd.to_numeric(inventory_data['Reorder_Level'], errors='coerce')
+inventory_data.ffill(inplace=True)
