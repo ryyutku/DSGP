@@ -1,0 +1,24 @@
+# Heatmap Function
+def plot_consumption_heatmap(data):
+    # Resample daily data to weekly for better heatmap clarity
+    data = data.copy()
+    data['Week'] = data.index.to_period('W').astype(str)
+    
+    avg_stock_by_week = data.groupby(['Week', 'Fuel_Type'])['Current_Stock'].mean().unstack()
+
+    fig = go.Figure(data=go.Heatmap(
+        z=avg_stock_by_week.values,
+        x=avg_stock_by_week.columns,
+        y=avg_stock_by_week.index,
+        colorscale='YlOrRd',
+        colorbar=dict(title='Avg Stock Level')
+    ))
+
+    fig.update_layout(
+        title='Heatmap of Average Weekly Stock Levels by Fuel Type',
+        xaxis=dict(title='Fuel Type'),
+        yaxis=dict(title='Week'),
+        template='plotly_white'
+    )
+
+    return plot(fig, output_type='div', include_plotlyjs=False)
