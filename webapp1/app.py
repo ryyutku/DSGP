@@ -1,13 +1,18 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, render_template, send_from_directory, redirect, session, flash
 import numpy as np
 import pandas as pd
 import pickle
 from flask_cors import CORS
 import os
 from datetime import datetime
+from db import initialize_database, add_user, get_user, verify_user
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
+app.secret_key = 'your_super_secret_key_here'  # For login sessions
+
 CORS(app)
+# Initialize database on startup
+initialize_database()
 
 # Ensure static and templates directories exist
 os.makedirs("static/images", exist_ok=True)
@@ -27,7 +32,15 @@ except Exception as e:
 
 @app.route('/')
 def index():
-    return render_template("emissions.html")
+    if 'username' not in session:
+        return redirect('/login')
+    return redirect('/emissions')  # Redirect to emissions page if logged in
+
+@app.route('/emissions')
+def emissions_page():
+    if 'username' not in session:
+        return redirect('/login')
+    return render_template("emissions.html", username=session['username'])  # Pass username to template
 
 @app.route('/static/<path:filename>')
 def serve_static(filename):
@@ -139,6 +152,65 @@ def predict_future(model, scaler, df, steps=12):
         current_window = np.append(current_window[1:], next_pred).reshape(-1, 1)
     
     return scaler.inverse_transform(np.array(predictions).reshape(-1, 1))
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        email = request.form.get('email')
+        fullname = request.form.get('fullname')
+
+        # Validate inputs
+        if not username or not password:
+            flash('Username and password are required', 'error')
+            return redirect('/signup')
+            
+        if password != confirm_password:
+            flash('Passwords do not match', 'error')
+            return redirect('/signup')
+            
+        if get_user(username):
+            flash('Username already exists', 'error')
+            return redirect('/signup')
+
+        # Add new user - PASS EMAIL AND FULLNAME HERE
+        if add_user(username, password, email, fullname):
+            session['username'] = username
+            flash('Account created successfully!', 'success')
+            return redirect('/emissions')
+        else:
+            flash('Error creating account', 'error')
+            return redirect('/signup')
+
+    return render_template("signup.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if verify_user(username, password):
+            session['username'] = username
+            return redirect('/emissions')
+        else:
+            flash("Invalid username or password")
+            return redirect('/login')
+
+    return render_template("login.html")
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash("Logged out successfully")
+    return redirect('/login')
+
+
+
+
 
 if __name__ == '__main__':
     # Check for required files

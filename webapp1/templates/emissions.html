@@ -315,23 +315,59 @@
             color: var(--hover-color);
             transform: scale(1.3);
         }
+        .profile-initial {
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
     </style>
 </head>
 
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <a href="#" class="logo">
-            <img src="{{ url_for('static', filename='images/logo.jpg') }}?v=1.0" alt="PetroVision Logo">
-        </a>
-        <ul class="navmenu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Fuel Demand</a></li>
-            <li><a href="#">Fuel Prices</a></li>
-            <li><a href="#">Inventory</a></li>
-            <li><a href="#">Carbon Emissions</a></li>
-        </ul>
-    </header>
+    <header class="flex items-center justify-between px-6 py-4 bg-white shadow">
+     <a href="#" class="logo">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}?v=1.0" alt="PetroVision Logo">
+    </a>
+    <ul class="navmenu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Fuel Demand</a></li>
+        <li><a href="#">Fuel Prices</a></li>
+        <li><a href="#">Inventory</a></li>
+        <li><a href="#">Carbon Emissions</a></li>
+    </ul>
+
+    <!-- User profile + logout -->
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="profile-initial">
+            {% if username %}{{ username[0]|upper }}{% endif %}
+        </div>
+        <form method="GET" action="{{ url_for('logout') }}">
+            <button class="logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+</header>
 
     <!-- Hero Image Section with fallback background -->
     <section class="main-home" style="background: #f4f4f4 url('{{ url_for('static', filename='images/hero.jpeg') }}') no-repeat center center/cover">
