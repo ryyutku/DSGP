@@ -1,0 +1,8 @@
+def forecast_inventory_ARIMA(model, periods):
+    if model:
+        forecast = model.predict(n_periods=periods)
+        logging.info(f"Forecasted values: {forecast}")
+        return forecast
+    else:
+        logging.error("Model is None, cannot forecast")
+        return None
